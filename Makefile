@@ -68,8 +68,8 @@ apk_debug:
 	open build/app/outputs/flutter-apk/ || xdg-open build/app/outputs/flutter-apk/ || start build/app/outputs/flutter-apk/
 
 # Run IPF generator file to generate models, services, repositories, etc.
-ipf_gen:
-	flutter test ipf_generator.dart
+code_gen:
+	flutter test code_generator.dart
 
 # Run build_runner once
 build_runner:

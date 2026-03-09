@@ -1,8 +1,9 @@
 import 'package:afya_bee/core/resources/images.dart';
 import 'package:afya_bee/features/auth/screens/login_screen.dart';
+import 'package:afya_bee/features/dashboard/screens/doctor_dashboard_screen.dart';
+import 'package:afya_bee/services/preferences.dart';
 import 'package:flutter/material.dart';
 
-/// Splash screen widget
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -14,14 +15,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToHome();
+    _initializeAndNavigate();
   }
 
-  Future<void> _navigateToHome() async {
+  Future<void> _initializeAndNavigate() async {
     await Future.delayed(const Duration(seconds: 2));
-    if (mounted) {
-      // Navigate to your home screen
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoginScreen()));
+
+    if (!mounted) return;
+    Preferences prefs = Preferences.instance;
+    bool isLoggedIn = await prefs.isLoggedIn ?? false;
+    if (isLoggedIn) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const DoctorDashboardScreen()));
+    } else {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginScreen()));
     }
   }
 
