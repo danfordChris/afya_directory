@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum AppButtonType { primary, outline, text, success, destructive, custom }
+
 /// A reusable primary app button with loading + disabled states
 class AppButton extends StatelessWidget {
   final String text;
@@ -16,6 +18,7 @@ class AppButton extends StatelessWidget {
   final Widget? trailing;
   final TextStyle? textStyle;
   final double? progressSize;
+  final AppButtonType type;
 
   /// Base constructor
   const AppButton({
@@ -34,6 +37,7 @@ class AppButton extends StatelessWidget {
     this.trailing,
     this.textStyle,
     this.progressSize,
+    this.type = AppButtonType.custom,
   });
 
   /// Primary button
@@ -52,7 +56,8 @@ class AppButton extends StatelessWidget {
     this.textStyle,
     this.progressSize,
   }) : backgroundColor = null,
-       foregroundColor = null;
+       foregroundColor = null,
+       type = AppButtonType.primary;
 
   /// Outline button
   const AppButton.outline({
@@ -70,7 +75,8 @@ class AppButton extends StatelessWidget {
     this.textStyle,
     this.progressSize,
   }) : backgroundColor = Colors.transparent,
-       foregroundColor = null;
+       foregroundColor = null,
+       type = AppButtonType.outline;
 
   /// Text button
   const AppButton.text({
@@ -88,7 +94,8 @@ class AppButton extends StatelessWidget {
     this.textStyle,
     this.progressSize,
   }) : backgroundColor = Colors.transparent,
-       foregroundColor = null;
+       foregroundColor = null,
+       type = AppButtonType.text;
 
   /// Success button
   const AppButton.success({
@@ -106,7 +113,8 @@ class AppButton extends StatelessWidget {
     this.textStyle,
     this.progressSize,
   }) : backgroundColor = Colors.green,
-       foregroundColor = Colors.white;
+       foregroundColor = Colors.white,
+       type = AppButtonType.success;
 
   /// Destructive button
   const AppButton.destructive({
@@ -124,7 +132,8 @@ class AppButton extends StatelessWidget {
     this.textStyle,
     this.progressSize,
   }) : backgroundColor = Colors.red,
-       foregroundColor = Colors.white;
+       foregroundColor = Colors.white,
+       type = AppButtonType.destructive;
 
   bool get _isDisabled => onPressed == null || isLoading;
 
@@ -137,14 +146,32 @@ class AppButton extends StatelessWidget {
     final Color bgColor;
     final Color fgColor;
 
-    if (backgroundColor == Colors.transparent) {
-      // Outline or text button
-      bgColor = Colors.transparent;
-      fgColor = foregroundColor ?? colorScheme.primary;
-    } else {
-      // Solid buttons
-      bgColor = backgroundColor ?? colorScheme.primary;
-      fgColor = foregroundColor ?? colorScheme.onPrimary;
+    switch (type) {
+      case AppButtonType.outline:
+      case AppButtonType.text:
+        bgColor = Colors.transparent;
+        fgColor = foregroundColor ?? colorScheme.primary;
+        break;
+
+      case AppButtonType.success:
+        bgColor = backgroundColor ?? Colors.green;
+        fgColor = foregroundColor ?? Colors.white;
+        break;
+
+      case AppButtonType.destructive:
+        bgColor = backgroundColor ?? Colors.red;
+        fgColor = foregroundColor ?? Colors.white;
+        break;
+
+      case AppButtonType.primary:
+        bgColor = colorScheme.primary;
+        fgColor = foregroundColor ?? colorScheme.onPrimary;
+        break;
+
+      case AppButtonType.custom:
+        bgColor = backgroundColor ?? colorScheme.primary;
+        fgColor = foregroundColor ?? colorScheme.onPrimary;
+        break;
     }
 
     // Apply disabled opacity

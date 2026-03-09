@@ -13,9 +13,8 @@ class BookingInformation extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Booking Information", style: context.titleMedium.copyWith(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 20),
-
+          // Text("Booking Information", style: context.titleMedium.copyWith(fontWeight: FontWeight.bold)),
+          // const SizedBox(height: 20),
           InfoRow(
             icon: HugeIcon(icon: HugeIcons.strokeRoundedCalendar01),
             title: "Time",

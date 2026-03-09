@@ -1,8 +1,9 @@
 import 'package:afya_bee/core/extensions/build_context_extension.dart';
 import 'package:afya_bee/features/booking/widgets/booking_information.dart';
-import 'package:afya_bee/features/booking/widgets/patient_info.dart';
 import 'package:afya_bee/shared/components/app_button.dart';
+import 'package:afya_bee/shared/components/input_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class BookingDetailScreen extends StatelessWidget {
   const BookingDetailScreen({super.key});
@@ -13,32 +14,43 @@ class BookingDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         leading: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios_new)),
-        title: Text("Booking Detail", style: context.titleLarge),
+        title: InkWell(
+          onTap: () {
+            //..make a phone call
+          },
+          child: Row(
+            spacing: 8,
+            children: [
+              HugeIcon(icon: HugeIcons.strokeRoundedCall, color: context.colorScheme.primary, size: 18),
+              Text("Sarah Jenkins", style: context.bodyLarge.copyWith(fontWeight: FontWeight.bold)),
+            ],
+          ),
+        ),
+        surfaceTintColor: context.colorScheme.surface,
         centerTitle: true,
+        actions: [],
       ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const SizedBox(height: 20),
-              PatientInfo(),
+              // const SizedBox(height: 20),
+              // const PatientInfo(),
               const SizedBox(height: 12),
-              BookingInformation(),
+              const BookingInformation(),
               const SizedBox(height: 20),
-              Container(
-                height: 100,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(12)),
-                alignment: Alignment.topLeft,
-                child: const Text("Add note details...", style: TextStyle(color: Colors.grey)),
+              InputField(
+                labelText: "Doctor's Note",
+                hintText: "Add any notes or instructions for the doctor regarding this booking.",
+                maxLines: 2,
+                onChanged: (value) {
+                  // Handle doctor's note input change
+                },
               ),
               const SizedBox(height: 20),
-
               TextButton(
                 onPressed: () {},
                 child: Text(
@@ -46,7 +58,8 @@ class BookingDetailScreen extends StatelessWidget {
                   style: context.bodyMedium.copyWith(color: colorScheme.primary, fontWeight: FontWeight.w600),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 24),
+              // Spacer(),
               Row(
                 children: [
                   Expanded(

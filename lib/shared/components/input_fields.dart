@@ -39,6 +39,8 @@ class InputField<T> extends StatefulWidget {
     this.fillColor,
     this.inputFormatters,
     this.maxLength,
+    this.maxLines,
+    this.minLines,
   }) : pinLength = null,
        pinBoxWidth = null,
        pinBoxHeight = null,
@@ -66,6 +68,8 @@ class InputField<T> extends StatefulWidget {
     this.fillColor,
     this.initialValue,
     this.itemLabel,
+    this.maxLines = null,
+    this.minLines = null,
   }) : controller = null,
        prefix = null,
        prefixText = null,
@@ -120,6 +124,8 @@ class InputField<T> extends StatefulWidget {
   final Color? fillColor;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength;
+  final int? maxLines;
+  final int? minLines;
   final List<T>? items;
   final T? initialValue;
   final String Function(T)? itemLabel;
@@ -165,6 +171,8 @@ class _InputFieldState<T> extends State<InputField<T>> {
         decoration: _decoration,
         validator: widget.validator,
         maxLength: widget.maxLength,
+        maxLines: widget.maxLines ?? 1,
+        minLines: widget.minLines,
         inputFormatters: widget.inputFormatters,
         onChanged: (value) {
           widget.onChanged?.call(value as T?);

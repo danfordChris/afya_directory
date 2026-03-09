@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class AppCard extends StatelessWidget {
   final Widget child;
-  const AppCard({super.key, required this.child});
+  final EdgeInsetsGeometry? padding;
+  const AppCard({super.key, required this.child, this.padding});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: padding ?? const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: context.colorScheme.outlineVariant.withAlpha(120), width: 1),
       ),
